@@ -27,11 +27,13 @@ print "$current_branch\n\n";
 
 sub did_you_commit {
     my @git_status = `git status`;
-    if (index($git_status[3], "nothing to commit") != -1 || index($git_status[4], "nothing to commit") != -1) {
-        return 1;
-    } else {
-        return 0;
+
+    foreach my $line (@git_status) {
+        if (index($line, "nothing to commit") != -1) {
+            return 1;
+        }
     }
+    return 0;
 }
 
 sub run_specs_and_push {
