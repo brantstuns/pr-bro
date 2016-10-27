@@ -50,16 +50,8 @@ sub run_specs_and_push {
 
 
 sub make_new_branch {
-    if (&did_you_commit()) {
-        print color("bold red");
-        print "\n\n(╯°□°）╯︵ ┻━┻         (╯°□°）╯︵ ┻━┻ \n";
-        die "\n\n\nLooks like you already commited to master or you just don't have any local changes.
-        \n\nThe pr-bro can't help you now.
-        I've heard there's a chance this can though:   http://bfy.tw/8PTQ\n"
-    } else {
-        print color("bold red");
-        system("git checkout -b $_[0]") == 0
-            or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here.
+    print color("bold red");
+    system("git checkout -b $_[0]") == 0
+        or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here.
                     Your new branch checkout blew up ¯\_(ツ)_/¯\n";
-    }
 }
