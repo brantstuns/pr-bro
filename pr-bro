@@ -39,7 +39,7 @@ sub run_specs_and_push {
         \nYou should check that out before you push this up and make one of those sweet pull requests.\n";
 
     if (&did_you_commit()) {
-        system("echo git push -u origin $current_branch") == 0
+        system("git push -u origin $current_branch") == 0
             or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
     } else {
         print color('bold blue');
