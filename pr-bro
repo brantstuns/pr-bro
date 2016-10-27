@@ -1,37 +1,63 @@
 #!/usr/bin/perl
 use strict;
+use Term::ANSIColor;
+use feature 'unicode_strings';
 
 chomp(my $current_branch = `git rev-parse --abbrev-ref HEAD`);
 my $test_command = "gulp specs";
 
 if ($current_branch eq "master") {
+    print color('bold yellow');
     print "\n(ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) \n\n";
-    print "You're on the master branch, bro. Pump the brakes and make a new branch \n\n";
+    print color('bold red');
+    print "You're on the master branch, bro. Pump the brakes and make you a new branch  \n\n";
+    print color('magenta');
     print "Enter the name of your new branch or bail by blasting ctrl-c : ";
     chomp(my $new_branch = <STDIN>);
     &make_new_branch($new_branch);
 }
 
-print "\nHey, bro. Lets make a PR. \n\nFirst lets run those specs and push to this nice remote branch you got here\n\n\n";
+print color('bold green');
+print "\nHey, bro. Lets make a PR. \n\nFirst lets run those specs and push to this nice new branch you got here\ngit ";
 print "your current branch is: $current_branch\n";
 &run_specs_and_push();
 
-sub run_specs_and_push {
-    system("echo $test_command") == 0
-        or die "\n\nLooks like your tests are hosed, bro. \nYou should check that out before you make this sweet pull request.\n";
-
-    system("echo git push -u origin $current_branch") == 0
-        or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
+sub did_you_commit {
+    my @git_status = `git status`;
+    if (index($git_status[2], "nothing to commit") != -1) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
-sub make_new_branch {
-    my @git_status = `git status`;
+sub run_specs_and_push {
+    print color('bold red');
 
-    if (index($git_status[2], "nothing to commit") != -1) {
-        die "Looks like you already commited to master or you just don't have any local changes.
-        The pr-bro can't help you now.
-        This can though: \n\n http://bfy.tw/8PTQ\n"
+    system($test_command) == 0
+        or die "\n\n (╯°□°）╯︵ ┻━┻ \n\nLooks like your tests are hosed, bro.
+        \nYou should check that out before you push this up and make one of those sweet pull requests.\n";
+
+    if (&did_you_commit()) {
+        system("echo git push -u origin $current_branch") == 0
+            or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
     } else {
+        print color('bold blue');
+        die "\n\n Oh crap. You have uncommited local changes hanging around. (；一_一)
+            \nI'm bailing, you should commit those and try me again.\n"
+    }
+}
+
+
+sub make_new_branch {
+    if (&did_you_commit()) {
+        print color("bold red");
+        print "\n\n(╯°□°）╯︵ ┻━┻         (╯°□°）╯︵ ┻━┻ \n"
+        die "\n\n\nLooks like you already commited to master or you just don't have any local changes.
+        \n\nThe pr-bro can't help you now.
+        I've heard there's a chance this can though:   http://bfy.tw/8PTQ\n"
+    } else {
+        print color("bold red");
         system("git checkout -b $_[0]") == 0
             or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here.
                     Your new branch checkout blew up ¯\_(ツ)_/¯\n";
