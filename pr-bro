@@ -24,13 +24,10 @@ sub run_specs_and_push {
         or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
 }
 
-sub check_if_commited {
-    my @git_status = `git status`;
-    chomp(@git_status[2]) eq "nothing to commit, working tree clean";
-}
-
 sub make_new_branch {
-    if (&check_if_commited()) {
+    my @git_status = `git status`;
+
+    if (chomp($git_status[2]) eq "nothing to commit, working tree clean") {
         die "Looks like you already commited to master or you just don't have any local changes.
         The pr-bro can't help you now.
         This can though: \n\n http://bfy.tw/8PTQ\n"
