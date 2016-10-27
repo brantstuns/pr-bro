@@ -27,7 +27,7 @@ sub run_specs_and_push {
 sub make_new_branch {
     my @git_status = `git status`;
 
-    if ($git_status[2] eq "nothing to commit, working tree clean") {
+    if (index($git_status[2], "nothing to commit") != -1) {
         die "Looks like you already commited to master or you just don't have any local changes.
         The pr-bro can't help you now.
         This can though: \n\n http://bfy.tw/8PTQ\n"
