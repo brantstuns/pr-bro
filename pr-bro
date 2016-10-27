@@ -10,7 +10,7 @@ if ($current_branch eq "master") {
     print color('bold yellow');
     print "\n(ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) (ಠ_ಠ) \n\n";
     print color('bold red');
-    print "You're on the master branch, bro. Pump the brakes and make you a new branch  \n\n";
+    print "You're on the master branch, bro. Pump the brakes and lets make you a new branch  \n\n";
     print color('magenta');
     print "Enter the name of your new branch or bail by blasting ctrl-c : ";
     chomp(my $new_branch = <STDIN>);
@@ -44,7 +44,7 @@ sub run_specs_and_push {
     } else {
         print color('bold blue');
         die "\n\n Oh crap. You have uncommited local changes hanging around. (；一_一)
-            \nI'm bailing, you should commit those and try me again.\n"
+            \nI'm bailing, you should commit those and try me again.\n";
     }
 }
 
@@ -52,7 +52,7 @@ sub run_specs_and_push {
 sub make_new_branch {
     if (&did_you_commit()) {
         print color("bold red");
-        print "\n\n(╯°□°）╯︵ ┻━┻         (╯°□°）╯︵ ┻━┻ \n"
+        print "\n\n(╯°□°）╯︵ ┻━┻         (╯°□°）╯︵ ┻━┻ \n";
         die "\n\n\nLooks like you already commited to master or you just don't have any local changes.
         \n\nThe pr-bro can't help you now.
         I've heard there's a chance this can though:   http://bfy.tw/8PTQ\n"
