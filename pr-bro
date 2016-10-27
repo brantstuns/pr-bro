@@ -1,5 +1,14 @@
 #!/usr/bin/perl
 
-use 5.016;
+$current_branch = `git rev-parse --abbrev-ref HEAD`;
+$test_command = "gulp specs";
 
-say "sup bro";
+if ($current_branch eq "master") {
+    print "broooo you're on the master branch, pump the breaks and make a new branch\n"
+} else {
+    print "\nHey, bro. Lets make a PR. \n\nFirst lets run those specs and push to this nice remote branch you got here\n\n\n";
+    print "your current branch is: $current_branch\n";
+}
+
+system($test_command) == 0
+    or die "\n\nLooks like your tests are hosed, bro. \nYou should check that out before you make this sweet pull request.\n"
