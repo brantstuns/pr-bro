@@ -22,7 +22,7 @@ print "\nHey, bro. Lets make a PR. \n\nFirst lets run those specs and push to th
 print color('bold blue');
 print "your current branch is: ";
 print color('bold magenta');
-print "$current_branch\n\n\n";
+print "$current_branch\n\n";
 &run_specs_and_push();
 
 sub did_you_commit {
@@ -48,7 +48,7 @@ sub run_specs_and_push {
         print color('bold blue');
         print "\n\n Just pushed, go open your PR, bro. You're the best developer ever.";
         print color('bold yellow');
-        print "◕‿↼ ";
+        print "   ◕‿↼ \n\n\n";
     } else {
         die "\n\n Oh crap. You have uncommited local changes hanging around. (；一_一)
             \nI'm bailing, you should commit those and try me again.\n";
