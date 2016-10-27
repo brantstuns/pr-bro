@@ -18,13 +18,16 @@ if ($current_branch eq "master") {
 }
 
 print color('bold green');
-print "\nHey, bro. Lets make a PR. \n\nFirst lets run those specs and push to this nice new branch you got here\ngit ";
-print "your current branch is: $current_branch\n";
+print "\nHey, bro. Lets make a PR. \n\nFirst lets run those specs and push to this nice new branch you got here\n\n\n";
+print color('bold blue');
+print "your current branch is: ";
+print color('bold magenta');
+print "$current_branch\n\n\n";
 &run_specs_and_push();
 
 sub did_you_commit {
     my @git_status = `git status`;
-    if (index($git_status[2], "nothing to commit") != -1) {
+    if (index($git_status[3], "nothing to commit") != -1 || index($git_status[4], "nothing to commit") != -1) {
         return 1;
     } else {
         return 0;
@@ -41,13 +44,16 @@ sub run_specs_and_push {
     if (&did_you_commit()) {
         system("git push -u origin $current_branch") == 0
             or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
-    } else {
+
         print color('bold blue');
+        print "\n\n Just pushed, go open your PR, bro. You're the best developer ever.";
+        print color('bold yellow');
+        print "◕‿↼ ";
+    } else {
         die "\n\n Oh crap. You have uncommited local changes hanging around. (；一_一)
             \nI'm bailing, you should commit those and try me again.\n";
     }
 }
-
 
 sub make_new_branch {
     print color("bold red");
