@@ -43,10 +43,10 @@ sub run_specs_and_push {
         or die "\n\n (╯°□°）╯︵ ┻━┻ \n\nLooks like your tests are hosed, bro.
         \nYou should check that out before you push this up and make one of those sweet pull requests.\n";
 
-    if (&did_you_commit()) {
-        system("git push -u origin $current_branch") == 0
-            or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
+    system("git push -u origin $current_branch") == 0
+        or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
 
+    if (&did_you_commit()) {
         print color('bold blue');
         print "\n\n Just pushed, go open your PR, bro. You're the best developer ever.";
         print color('bold yellow');
