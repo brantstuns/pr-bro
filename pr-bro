@@ -25,6 +25,17 @@ print color('bold magenta');
 print "$current_branch\n\n";
 &run_specs_and_push();
 
+sub did_you_commit {
+    my @git_status = `git status`;
+
+    foreach my $line (@git_status) {
+        if (index($line, "nothing to commit") != -1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 sub run_specs_and_push {
     print color('bold red');
 
@@ -32,13 +43,18 @@ sub run_specs_and_push {
         or die "\n\n (╯°□°）╯︵ ┻━┻ \n\nLooks like your tests are hosed, bro.
         \nYou should check that out before you push this up and make one of those sweet pull requests.\n";
 
-    system("git push -u origin $current_branch") == 0
-        or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
+    if (&did_you_commit()) {
+        system("git push -u origin $current_branch") == 0
+            or die "\n ¯\_(ツ)_/¯ Well something not very chill is going on here. Your push blew up ¯\_(ツ)_/¯\n";
 
-    print color('bold blue');
-    print "\n\n Just pushed, go open your PR, bro. You're the best developer ever.";
-    print color('bold yellow');
-    print "   ◕‿↼ \n\n\n";
+        print color('bold blue');
+        print "\n\n Just pushed, go open your PR, bro. You're the best developer ever.";
+        print color('bold yellow');
+        print "   ◕‿↼ \n\n\n";
+    } else {
+        die "\n\n Oh crap. You have uncommited local changes hanging around. (；一_一)
+            \nI'm bailing, you should commit those and try me again.\n";
+    }
 }
 
 sub make_new_branch {
