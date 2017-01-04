@@ -50,7 +50,7 @@ sub run_specs_and_push {
         print color('bold blue');
         print "\n\n Just pushed, go open your PR, bro. You're the best developer ever.";
         print color('bold yellow');
-        print "   ◕‿↼ \n\n\n";
+        print "   (¬‿¬) 👻 \n\n\n";
     } else {
         die "\n\n Oh crap. You have uncommited local changes hanging around. (；一_一)
             \nI'm bailing, you should commit those and try me again.\n";
