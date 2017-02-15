@@ -4,7 +4,12 @@ use Term::ANSIColor;
 use feature 'unicode_strings';
 
 chomp(my $current_branch = `git rev-parse --abbrev-ref HEAD`);
-my $test_command = "npm test";
+my $test_command;
+if (@ARGV) {
+    $test_command = 'yarn test';
+} else {
+    $test_command = 'npm test';
+}
 
 if ($current_branch eq "master") {
     print color('bold yellow');
