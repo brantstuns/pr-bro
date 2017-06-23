@@ -19,7 +19,8 @@ if ($current_branch eq "master") {
     print color('magenta');
     print "Enter the name of your new branch or bail by blasting ctrl-c : ";
     chomp(my $new_branch = <STDIN>);
-    &make_new_branch($new_branch);
+    $current_branch = $new_branch;
+    &make_new_branch($current_branch);
 }
 
 print color('bold green');
