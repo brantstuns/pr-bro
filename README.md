@@ -2,7 +2,7 @@
 
 ![bro](http://i.giphy.com/OIEhvGRByVrHO.gif)
 
-Pull request helper script. This just makes sure your tests run before pushing and that you don't try any funny business with the master branch.
+Pull request helper script for Javascript projects. This just makes sure your tests run before pushing and that you don't try any funny business with the master branch.
 
 ## INSTALL
 
@@ -20,9 +20,9 @@ Make sure /usr/local/bin or $HOME/bin if you prefer is on your $PATH.
 
 use it by running `pr-bro` in a git repo your about to open a PR with.
 
-##### FOR YARN PROJECTS: run `pr-bro y`
+##### FOR NPM PROJECTS: run `pr-bro npm`
 
-`pr-bro` alone will default to running `npm test`, otherwise it will run `yarn test` so make sure those scripts in your package.json run your full test suite and your linter
+`pr-bro` alone will default to running `yarn test`, otherwise it will run `npm test` so make sure those scripts in your package.json run your full test suite and your linter
 
 
 *NOTE:* This is pretty specialized to my current team and won't fit everyone's git flow. It's pretty generic but basically if you want to tailor it to work better for you edit that 
